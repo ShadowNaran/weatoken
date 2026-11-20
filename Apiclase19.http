@@ -1,0 +1,52 @@
+@Apiclase19_HostAddress = http://localhost:5077
+
+### Iniciar el login OAuth en el navegador y continuar con la redirección de GitHub
+GET {{Apiclase19_HostAddress}}/api/auth/login
+
+### Callback de prueba negativa (el callback real lo envía GitHub tras autorizar)
+GET {{Apiclase19_HostAddress}}/api/auth/callback?code=invalid&state=invalid
+
+### Verificar la sesión/token de GitHub (requiere haber completado el login)
+GET {{Apiclase19_HostAddress}}/api/auth/EstaAutenticado
+Accept: application/json
+
+### Cerrar sesión
+POST {{Apiclase19_HostAddress}}/api/auth/logout
+
+### Listar personas (requiere autenticación)
+GET {{Apiclase19_HostAddress}}/api/persona
+Accept: application/json
+
+### Obtener persona por ID (requiere autenticación)
+GET {{Apiclase19_HostAddress}}/api/persona/1
+Accept: application/json
+
+### Crear persona (requiere autenticación)
+POST {{Apiclase19_HostAddress}}/api/persona
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Pérez",
+  "edad": 30
+}
+
+### Actualizar persona (requiere autenticación)
+PUT {{Apiclase19_HostAddress}}/api/persona/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nombre": "Ana",
+  "apellido": "Pérez",
+  "edad": 31
+}
+
+### Eliminar persona (requiere autenticación)
+DELETE {{Apiclase19_HostAddress}}/api/persona/1
+
+###
+GET {{Apiclase19_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
