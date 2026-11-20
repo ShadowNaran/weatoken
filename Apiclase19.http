@@ -4,7 +4,7 @@
 GET {{Apiclase19_HostAddress}}/api/auth/login
 
 ### Callback de prueba negativa (el callback real lo envía GitHub tras autorizar)
-GET {{Apiclase19_HostAddress}}/api/auth/callback?code=invalid&state=invalid
+GET {{Apiclase19_HostAddress}}/auth/callback?code=invalid&state=invalid
 
 ### Verificar la sesión/token de GitHub (requiere haber completado el login)
 GET {{Apiclase19_HostAddress}}/api/auth/EstaAutenticado

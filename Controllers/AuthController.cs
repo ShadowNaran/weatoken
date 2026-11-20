@@ -22,7 +22,7 @@ public sealed class AuthController(
 
     [HttpGet("login")]
     [EndpointSummary("Iniciar sesión con GitHub")]
-    [ProducesResponseType(StatusCodes.Status302Found)]
+    [ProducesResponseType(typeof(RedirectResult), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
     public IActionResult Login()
     {
@@ -45,10 +45,10 @@ public sealed class AuthController(
             + $"&scope={Uri.EscapeDataString("read:user")}"
             + $"&state={Uri.EscapeDataString(state)}";
 
-        return Redirect(authorizationUrl);
+        return Ok(Redirect(authorizationUrl));
     }
 
-    [HttpGet("callback")]
+    [HttpGet("/auth/callback")]
     [EndpointSummary("Completar el inicio de sesión con GitHub")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -176,7 +176,7 @@ public sealed class AuthController(
         }
 
         HttpContext.Session.SetString(GitHubTokenSessionKey, tokenResponse.AccessToken);
-        return Ok(new { user.Id, user.Login, user.Name });
+        return Ok("Usuario autenticado correctamente");
     }
 
     [HttpGet("EstaAutenticado")]
